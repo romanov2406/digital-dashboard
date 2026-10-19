@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Digital Dashboard</title>
+  <base href="/">
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="color-scheme" content="light dark">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  <!-- Icon sprite, used by <app-icon name="..."> -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-car" viewBox="0 0 24 24"><path d="M3.5 13.5 5.2 8.4A2 2 0 0 1 7.1 7h9.8a2 2 0 0 1 1.9 1.4l1.7 5.1V18h-2.5v-1.6h-12V18H3.5Z"/><path d="M3.5 13.5h17"/><circle cx="7.3" cy="15" r=".6"/><circle cx="16.7" cy="15" r=".6"/></symbol>
+      <symbol id="i-fan" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.5"/><path d="M12 10.5C11 6 13 3 15.5 4c2 1 .5 5-2.1 7.2M13.5 12c4.5-1 7.5 1 6.5 3.5-1 2-5 .5-7.2-2.1M12 13.5c1 4.5-1 7.5-3.5 6.5-2-1-.5-5 2.1-7.2M10.5 12C6 13 3 11 4 8.5c1-2 5-.5 7.2 2.1"/></symbol>
+      <symbol id="i-power" viewBox="0 0 24 24"><path d="M12 3v8M6.3 6.3a8 8 0 1 0 11.4 0"/></symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 20h18M6 16v-5M11 16V6M16 16v-8"/></symbol>
+      <symbol id="i-seat" viewBox="0 0 24 24"><path d="M8 3c-1.5 0-2 1-1.8 2.5L8 14h7a2 2 0 0 1 2 2v2H8a2 2 0 0 1-2-1.6L4.5 7"/><path d="M9 21h7"/></symbol>
+      <symbol id="i-wheel" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><path d="m3.5 10.5 6.6 1.2M20.5 10.5l-6.6 1.2M12 14v7"/></symbol>
+      <symbol id="i-gps" viewBox="0 0 24 24"><path d="M12 2 19 21 12 17 5 21Z"/></symbol>
+      <symbol id="i-toggle" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="10" rx="5"/><circle cx="16" cy="12" r="2.5"/></symbol>
+      <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M13 5c6 0 8 3.5 8 7s-2 7-8 7Z"/><path d="M3 8h6M3 12h6M3 16h6"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+      <symbol id="i-unlock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/></symbol>
+      <symbol id="i-snow" viewBox="0 0 24 24"><path d="M12 2v20M3.3 7l17.4 10M3.3 17 20.7 7M9 3.5l3 2 3-2M9 20.5l3-2 3 2"/></symbol>
+      <symbol id="i-display" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+      <symbol id="i-cog" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></symbol>
+      <symbol id="i-fog" viewBox="0 0 24 24"><path d="M13 5c6 0 8 3.5 8 7s-2 7-8 7Z"/><path d="m3 7 6 2M3 12h6M3 17l6-2"/></symbol>
+      <symbol id="i-mirror" viewBox="0 0 24 24"><path d="M4 7h11a5 5 0 0 1 5 5 5 5 0 0 1-5 5H8a4 4 0 0 1-4-4Z"/></symbol>
+      <symbol id="i-child" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.5"/><path d="M7 10h10M12 10v5M9 21l3-6 3 6"/></symbol>
+      <symbol id="i-window" viewBox="0 0 24 24"><path d="M4 18V9l6-5h10v14Z"/><path d="M4 13h16"/></symbol>
+      <symbol id="i-glove" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="11" rx="2"/><path d="M9 12h6"/></symbol>
+      <symbol id="i-trunk" viewBox="0 0 24 24"><path d="M3 15l2-5h14l2 5v4H3Z"/><path d="M5 10 9 4h7"/></symbol>
+      <symbol id="i-frunk" viewBox="0 0 24 24"><path d="M21 15l-2-5H5l-2 5v4h18Z"/><path d="M19 10 15 4H8"/></symbol>
+      <symbol id="i-wiper" viewBox="0 0 24 24"><path d="M3 18a12 12 0 0 1 18 0"/><path d="m12 18-6-9"/></symbol>
+      <symbol id="i-recirc" viewBox="0 0 24 24"><path d="M3 14h13a4 4 0 0 0 0-8H7M10 3 7 6l3 3"/><path d="M3 19h18"/></symbol>
+      <symbol id="i-defF" viewBox="0 0 24 24"><path d="M3 14c3-6 15-6 18 0Z"/><path d="M8 17c-1 1.5 1 2.5 0 4M12 17c-1 1.5 1 2.5 0 4M16 17c-1 1.5 1 2.5 0 4"/></symbol>
+      <symbol id="i-defR" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="11" rx="2"/><path d="M8 18c-1 1.5 1 2.5 0 4M12 18c-1 1.5 1 2.5 0 4M16 18c-1 1.5 1 2.5 0 4"/></symbol>
+      <symbol id="i-face" viewBox="0 0 24 24"><circle cx="16" cy="6" r="2.5"/><path d="M3 10h8M3 14h6M8 7l3 3-3 3"/><path d="M16 9v6l-2 6M16 15l3 6"/></symbol>
+      <symbol id="i-feet" viewBox="0 0 24 24"><circle cx="16" cy="4" r="2.5"/><path d="M16 7v6l-2 6M16 13l3 6"/><path d="M3 20h8M8 17l3 3-3 3"/></symbol>
+      <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4"/></symbol>
+    </defs>
+  </svg>
+  <app-root></app-root>
+</body>
+</html>
