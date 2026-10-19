@@ -1,0 +1,79 @@
+<div class="pa">
+  <div class="sec-t"><app-icon name="sensor" [size]="20" />Park Assist</div>
+  @if (parking.sensors()) {
+    <div class="pa-readout">
+      <span [class]="'z-' + zoneOf(frontMin())">{{ label(frontMin()) || '—' }}</span>
+      <span class="sub">front</span>
+    </div>
+    <svg class="pa-view" viewBox="0 0 300 440">
+      <!-- car outline, minimal top view -->
+      <rect class="pa-car" x="100" y="115" width="100" height="210" rx="38" />
+      <path class="pa-glass" d="M112 170 Q150 156 188 170 L184 200 Q150 192 116 200 Z" />
+      <path class="pa-glass" d="M116 268 Q150 276 184 268 L188 292 Q150 302 112 292 Z" />
+      @for (a of frontArcs(); track $index) { <path class="pa-arc" [class]="'pa-arc z-' + a.zone" [attr.d]="a.path" /> }
+      @for (a of rearArcs(); track $index) { <path class="pa-arc" [class]="'pa-arc z-' + a.zone" [attr.d]="a.path" /> }
+    </svg>
+    <div class="pa-readout">
+      <span [class]="'z-' + zoneOf(rearMin())">{{ label(rearMin()) || '—' }}</span>
+      <span class="sub">rear</span>
+    </div>
+  } @else {
+    <div class="pa-empty">
+      <app-icon name="sensor" [size]="40" />
+      <div class="t">No parking sensors connected</div>
+      <div class="d">Park Assist shows distances from the car's sensors once a vehicle link provides them. Turn on Demo mode in Settings to preview it.</div>
+    </div>
+  }
+</div>
+
+<div class="pk-side">
+  <div class="pk-card">
+    <div class="sec-t"><app-icon name="parking" [size]="20" />Parked car</div>
+    @if (parking.spot(); as spot) {
+      <div class="pk-find">
+        <div class="pk-arrow" [style.transform]="'rotate(' + (toCarText()?.bearing ?? 0) + 'deg)'">
+          <app-icon name="gps" [size]="34" />
+        </div>
+        <div>
+          <div class="pk-dist">{{ toCarText()?.dist ?? '—' }} <small>{{ toCarText()?.dir }}</small></div>
+          <div class="d">{{ savedText() }}</div>
+          <div class="d mono">{{ spot.lat.toFixed(5) }}, {{ spot.lon.toFixed(5) }}</div>
+        </div>
+      </div>
+      <div class="pk-btns">
+        <button class="btn primary" (click)="parking.navigate()"><app-icon name="nav" [size]="20" />Navigate</button>
+        <button class="btn" (click)="parking.park()" [disabled]="!drive.position()"><app-icon name="pin" [size]="20" />Update</button>
+        <button class="btn" (click)="parking.clearSpot()">Clear</button>
+      </div>
+    } @else {
+      <div class="d">No parking spot saved yet.</div>
+      <div class="pk-btns">
+        <button class="btn primary" (click)="parking.park()" [disabled]="!drive.position()">
+          <app-icon name="pin" [size]="20" />Save parking spot
+        </button>
+      </div>
+      @if (!drive.position()) { <div class="d">Waiting for GPS position…</div> }
+    }
+  </div>
+
+  <div class="pk-card">
+    <div class="sec-t"><app-icon name="timer" [size]="20" />Parking timer</div>
+    <div class="seg">
+      @for (o of timerOpts; track o.l) {
+        <span [class.on]="timerActive(o.min)" (click)="parking.setTimer(o.min)">{{ o.l }}</span>
+      }
+    </div>
+    @if (countdown(); as c) {
+      <div class="pk-count" [class.expired]="c === 'Expired'">{{ c }}</div>
+      <div class="d">{{ c === 'Expired' ? 'Parking time is up' : 'Ends at ' + endsAt() + ' · reminder 10 min before' }}</div>
+    }
+  </div>
+
+  <div class="row" (click)="parking.setAutoSave(!parking.state().autoSave)">
+    <div>
+      <div class="t">Save spot automatically</div>
+      <div class="d">When the car stops for a minute after a drive</div>
+    </div>
+    <span class="switch" [class.on]="parking.state().autoSave"><i></i></span>
+  </div>
+</div>

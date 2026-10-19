@@ -22,6 +22,7 @@ export class DockComponent {
   protected readonly shortcuts: { id: Section; icon: string }[] = [
     { id: 'lights', icon: 'bulb' },
     { id: 'locks', icon: 'lock' },
+    { id: 'parking', icon: 'parking' },
     { id: 'trip', icon: 'chart' },
     { id: 'settings', icon: 'cog' },
   ];

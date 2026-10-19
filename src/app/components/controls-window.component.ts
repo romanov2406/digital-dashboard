@@ -6,6 +6,7 @@ import { Section, UiService } from '../services/ui.service';
 import { ControlsState, VehicleService } from '../services/vehicle.service';
 import { IconComponent } from './icon.component';
 import { ClimatePanelComponent } from './climate-panel.component';
+import { ParkingPanelComponent } from './parking-panel.component';
 
 type BoolControl = { [K in keyof ControlsState]: ControlsState[K] extends boolean ? K : never }[keyof ControlsState];
 
@@ -32,7 +33,7 @@ const OPEN_TILES: Tile[] = [
 /** Tesla-style "Controls" window: side menu + section content. */
 @Component({
   selector: 'app-controls-window',
-  imports: [IconComponent, DecimalPipe, NgTemplateOutlet, ClimatePanelComponent],
+  imports: [IconComponent, DecimalPipe, NgTemplateOutlet, ClimatePanelComponent, ParkingPanelComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'window' },
   templateUrl: './controls-window.component.html',
@@ -52,6 +53,7 @@ export class ControlsWindowComponent {
     { id: 'locks', icon: 'lock', label: 'Locks' },
     { id: 'climate', icon: 'fan', label: 'Climate' },
     { id: 'seats', icon: 'seat', label: 'Seats' },
+    { id: 'parking', icon: 'parking', label: 'Parking' },
     { id: 'trip', icon: 'chart', label: 'Trip' },
     { id: 'display', icon: 'display', label: 'Display' },
     { id: 'settings', icon: 'cog', label: 'Settings' },

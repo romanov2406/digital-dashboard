@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 
-export type Section = 'controls' | 'lights' | 'locks' | 'climate' | 'seats' | 'trip' | 'display' | 'settings';
+export type Section = 'controls' | 'lights' | 'locks' | 'climate' | 'seats' | 'trip' | 'parking' | 'display' | 'settings';
 
 @Injectable({ providedIn: 'root' })
 export class UiService {

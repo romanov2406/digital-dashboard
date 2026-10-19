@@ -149,6 +149,7 @@ export class DriveService {
       this.speedMs.set(v);
       this.heading.set(heading);
       this.accuracy.set(5);
+      this.position.set(move(this.position() ?? DEMO_START, heading, v * dt));
       if (v > MOVING_MS) this.addTrip(v * dt, dt, v);
     }, dt * 1000);
   }
@@ -165,6 +166,27 @@ export class DriveService {
       save('trip', this.trip());
     }
   }
+}
+
+/** Where the demo drive starts (Berlin). */
+const DEMO_START: LatLon = { lat: 52.52, lon: 13.405 };
+
+/** Move a point `metres` along `bearing` degrees (flat-earth approximation, fine for short steps). */
+function move(p: LatLon, bearing: number, metres: number): LatLon {
+  const rad = (bearing * Math.PI) / 180;
+  const dLat = (metres * Math.cos(rad)) / 111_320;
+  const dLon = (metres * Math.sin(rad)) / (111_320 * Math.cos((p.lat * Math.PI) / 180));
+  return { lat: p.lat + dLat, lon: p.lon + dLon };
+}
+
+/** Initial bearing in degrees from point a to point b. */
+export function bearing(a: LatLon, b: LatLon): number {
+  const rad = Math.PI / 180;
+  const y = Math.sin((b.lon - a.lon) * rad) * Math.cos(b.lat * rad);
+  const x =
+    Math.cos(a.lat * rad) * Math.sin(b.lat * rad) -
+    Math.sin(a.lat * rad) * Math.cos(b.lat * rad) * Math.cos((b.lon - a.lon) * rad);
+  return ((Math.atan2(y, x) / rad) + 360) % 360;
 }
 
 export function haversine(lat1: number, lon1: number, lat2: number, lon2: number): number {

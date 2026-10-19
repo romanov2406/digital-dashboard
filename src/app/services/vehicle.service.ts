@@ -54,6 +54,15 @@ export type VehicleCommand =
  * over BLE, an OBD adapter, a manufacturer API…) provide another implementation
  * for VEHICLE_LINK in app.config.ts.
  */
+/**
+ * Ultrasonic parking sensor readings in centimetres, left to right,
+ * or null for a sensor with no obstacle in range.
+ */
+export interface ParkSensors {
+  front: (number | null)[];
+  rear: (number | null)[];
+}
+
 export interface VehicleLink {
   readonly name: string;
   readonly connected: () => boolean;
@@ -61,6 +70,7 @@ export interface VehicleLink {
   /** Optional live data from the car; null when the link can't provide it. */
   readonly batteryPercent?: () => number | null;
   readonly gear?: () => Gear | null;
+  readonly parkSensors?: () => ParkSensors | null;
 }
 
 export class DemoVehicleLink implements VehicleLink {

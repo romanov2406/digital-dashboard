@@ -6,9 +6,13 @@ A Tesla-style digital dashboard built with **Ionic + Angular + Capacitor**. It s
 | --- | --- |
 | ![Tablet](docs/screenshots/tablet-light.png) | ![Climate](docs/screenshots/climate-dark.png) |
 
-| Settings | Phone | Phone – climate |
+| Parking | Settings |
+| --- | --- |
+| ![Parking](docs/screenshots/parking.png) | ![Settings](docs/screenshots/settings-light.png) |
+
+| Phone | Phone – climate | Phone – park assist |
 | --- | --- | --- |
-| ![Settings](docs/screenshots/settings-light.png) | <img src="docs/screenshots/phone.png" width="260"> | <img src="docs/screenshots/phone-climate.png" width="260"> |
+| <img src="docs/screenshots/phone.png" width="260"> | <img src="docs/screenshots/phone-climate.png" width="260"> | <img src="docs/screenshots/parking-phone.png" width="260"> |
 
 ## Features
 
@@ -17,6 +21,10 @@ A Tesla-style digital dashboard built with **Ionic + Angular + Capacitor**. It s
 - **Trip card**: distance, driving time, average and max speed, heading, plus GPS accuracy and altitude. The trip is saved between launches and can be reset.
 - **Climate**: driver and passenger temperature, Auto, a 10-step fan, A/C, recirculation, face/feet airflow, front and rear defrost, 3-level seat heaters and steering wheel heat. Tap the temperature in the bottom bar to open the pop-up.
 - **Controls**: headlights (Off/Parking/On/Auto), fog lights, mirrors, child and window locks, glovebox, door lock, frunk, trunk, wipers and steering mode.
+- **Parking**:
+  - **Park Assist**: Tesla-style distance arcs around the car for front and rear sensors. They turn yellow, orange and red as you get closer, with STOP under 30 cm. Readings come from the vehicle link; demo mode simulates them.
+  - **Find my car**: the spot is saved automatically when the car stops for a minute after a drive, or saved by hand. The app shows the distance and direction back to the car, with walking directions via *Navigate*.
+  - **Parking timer**: choose 30 min, 1 h, 2 h or 3 h for a countdown. A phone notification arrives 10 minutes before the time is up, and again when it runs out.
 - **Bottom bar** in Tesla's layout: car, temperature ‹ ›, shortcuts, seat heaters, rear defrost and wheel heat.
 - **Settings**: units, light/dark/auto appearance, keep the screen on, demo mode, and on/off switches for the speed-limit and weather lookups.
 - **Demo mode**: simulated driving, so you can try the app at your desk. It is offered automatically if GPS is denied or unavailable.
@@ -71,11 +79,13 @@ src/app/
 │   ├── car-card.component.*       # gear, battery, speed, power bar, trip card
 │   ├── controls-window.component.*   # Tesla "Controls" window with side menu
 │   ├── climate-panel.component.*  # climate controls (sheet + Climate section)
+│   ├── parking-panel.component.*  # park assist, find my car, parking timer
 │   ├── dock.component.*           # bottom bar
 │   └── icon.component.*           # icons from the SVG sprite in index.html
 └── services/
     ├── drive.service.ts           # GPS speed, heading, trip, demo simulator
     ├── environment.service.ts     # clock, battery, outside temp, speed limit
+    ├── parking.service.ts         # parked spot, parking timer + reminders, park-assist data
     ├── vehicle.service.ts         # climate/controls state + VehicleLink interface
     ├── settings.service.ts        # units, theme, demo, keep-awake
     └── ui.service.ts              # active section, climate sheet
@@ -96,7 +106,7 @@ The default `DemoVehicleLink` only logs the commands. To control real hardware (
 { provide: VEHICLE_LINK, useClass: MyBleVehicleLink }
 ```
 
-A link can also expose `batteryPercent()` and `gear()` so the dashboard shows real car data.
+A link can also expose `batteryPercent()`, `gear()` and `parkSensors()` so the dashboard shows real car data. `parkSensors()` returns front and rear distances in cm, left to right, with `null` meaning nothing in range.
 
 ## Data sources
 
