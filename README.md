@@ -66,19 +66,20 @@ npm run ios
 
 ```
 src/app/
-├── app.ts                         # layout: car card | controls window, climate sheet, dock
-├── components/
-│   ├── car-card.component.ts      # gear, battery, speed, power bar, trip card
-│   ├── controls-window.component.ts  # Tesla "Controls" window with side menu
-│   ├── climate-panel.component.ts # climate controls (sheet + Climate section)
-│   ├── dock.component.ts          # bottom bar
-│   └── icon.component.ts          # icons from the SVG sprite in index.html
+├── app.ts / app.html              # layout: car card | controls window, climate sheet, dock
+├── components/                    # each component = .ts (logic) + .html (template)
+│   ├── car-card.component.*       # gear, battery, speed, power bar, trip card
+│   ├── controls-window.component.*   # Tesla "Controls" window with side menu
+│   ├── climate-panel.component.*  # climate controls (sheet + Climate section)
+│   ├── dock.component.*           # bottom bar
+│   └── icon.component.*           # icons from the SVG sprite in index.html
 └── services/
     ├── drive.service.ts           # GPS speed, heading, trip, demo simulator
     ├── environment.service.ts     # clock, battery, outside temp, speed limit
     ├── vehicle.service.ts         # climate/controls state + VehicleLink interface
     ├── settings.service.ts        # units, theme, demo, keep-awake
     └── ui.service.ts              # active section, climate sheet
+src/styles.scss                    # all styles (Tesla design tokens, light/dark)
 ```
 
 ## Connecting a real car

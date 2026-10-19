@@ -1,0 +1,23 @@
+<ion-app>
+  <div class="shell">
+    <div class="main">
+      <app-car-card />
+      <div class="right">
+        <div class="topstrip">
+          <span class="s"><app-icon [name]="vehicle.controls().locked ? 'lock' : 'unlock'" [size]="18" /></span>
+          <span>{{ time() }}</span>
+          @if (env.outsideC() !== null) { <span>{{ settings.temp(env.outsideC()!) }}°{{ settings.imperial() ? 'F' : 'C' }}</span> }
+        </div>
+        <app-controls-window />
+        @if (ui.climateOpen()) {
+          <div class="scrim" (click)="ui.climateOpen.set(false)"></div>
+          <div class="sheet">
+            <div class="grab" (click)="ui.climateOpen.set(false)"></div>
+            <app-climate-panel />
+          </div>
+        }
+      </div>
+    </div>
+    <app-dock />
+  </div>
+</ion-app>
